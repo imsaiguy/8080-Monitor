@@ -1,2 +1,4 @@
 4K Monitor program for 8080
 relocated to 0100h for CP/M
+
+The 8080.asm version is for an Intel 80/20-4 board and is located to start at 0000h
