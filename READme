@@ -3,3 +3,4 @@ the 8080.txt version is a
 relocated to 0100h for CP/M
 
 The 8080.asm version is for an Intel 80/20-4 board and is located to start at 0000h
+The 8085.asm version is for 8085 SBC 
