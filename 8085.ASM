@@ -290,6 +290,10 @@ OPTAB:  .DB      'A'             ;COMMAND
         .DB      'G'             ;COMMAND
         .DW      GOTO            ;TO GOTO MEMORY LOCATION (BRKPT OPTION)
         .DW      M28
+;
+        .DB      'H' 			 ;COMMAND
+        .DW      HELP            ;TYPE QUICK HELP 
+        .DW      M70
 ; 
         .DB      'J'             ;COMMAND
         .DW      JUMP            ;TO JUMP TO MEMORY LOCATION
@@ -1256,6 +1260,16 @@ PEQU:   PUSH    PSW
         MVI     A,'='
         JMP     SPAC1           ;CONT ELSEWHERE
 ;
+;*********************************************************
+;*                                                       *
+;*                       HELP                            *
+;*                                                       *
+;*       DISPLAY HELP                                    *
+;*********************************************************
+;
+HELP:   LXI     H,M71           ;TYPE HELP
+        CALL    CRLFMG          ;MESSAGE
+        JMP     RESET           ;CONTINUE ELSEWHERE
 
 ;*********************************************************
 ;*                                                       *
@@ -3295,7 +3309,7 @@ TABEND: .DB      0FFH
 ;*                                                       *
 ;*********************************************************
 ;
-M0:     .DB      CR,LF,"8080 SYSTEM MONITOR",LF+80H
+M0:     .DB      CR,LF,"8085 SYSTEM MONITOR",LF+80H
 M2:     .DB      " IS UNDEFINE",'D'+80H
 M3:     .DB      " ?",'?'+80H
 M4:     .DB      "MEMORY WRITE ERROR AT",' '+80H
@@ -3326,24 +3340,24 @@ M66:    .DB      "EGISTER",' '+80H
 M67:    .DB      'O','F'+80H
 M68:    .DB      "XAMINE/MODIFY",' '+80H
 M69:    .DB      "ISPLA",'Y'+80H
-;M70:    .DB      "EL",'P'+80H
-;M71:    .DB      CR,LF,"ADDRESS XXXX"
-;        .DB      CR,LF,"DUMP HEX XXXX YYYY"
-;        .DB      CR,LF,"DUMP SYMBOLIC XXXX YYYY"
-;        .DB      CR,LF,"FILL XXXX YYYY ZZ"
-;        .DB      CR,LF,"JUMP XXXX"
-;        .DB      CR,LF,"LOAD HEX XXXX"
-;        .DB      CR,LF,"LOAD SYMBOLIC XXXX"
-;        .DB      CR,LF,"MOVE XXXX YYYY ZZZZ"
-;        .DB      CR,LF,"TEST XXXX YYYY"
-;        .DB      CR,LF,"PUNCH EOF"
-;        .DB      CR,LF,"PUNCH NULLS"
-;        .DB      CR,LF,"PUNCH HEX XXXX YYYY"
-;        .DB      CR,LF,"REGISTER DISPLAY"
-;        .DB      CR,LF,"REGISTER MODIFY X"
-;        .DB      CR,LF,"VERIFY HEX XXXX YYYY ZZ"
-;        .DB      CR,LF,"VERIFY SYMBOLIC XXXX YYYY ZZ"
-;        .DB      CR,LF,"ZAP XXXX YYY",'Y'+80H
+M70:    .DB      "EL",'P'+80H
+M71:    .DB      CR,LF,"ADDRESS XXXX"
+        .DB      CR,LF,"DUMP HEX XXXX YYYY"
+        .DB      CR,LF,"DUMP SYMBOLIC XXXX YYYY"
+        .DB      CR,LF,"FILL XXXX YYYY ZZ"
+        .DB      CR,LF,"JUMP XXXX"
+        .DB      CR,LF,"LOAD HEX XXXX"
+        .DB      CR,LF,"LOAD SYMBOLIC XXXX"
+        .DB      CR,LF,"MOVE XXXX YYYY ZZZZ"
+        .DB      CR,LF,"TEST XXXX YYYY"
+        .DB      CR,LF,"PUNCH EOF"
+        .DB      CR,LF,"PUNCH NULLS"
+        .DB      CR,LF,"PUNCH HEX XXXX YYYY"
+        .DB      CR,LF,"REGISTER DISPLAY"
+        .DB      CR,LF,"REGISTER MODIFY X"
+        .DB      CR,LF,"VERIFY HEX XXXX YYYY ZZ"
+        .DB      CR,LF,"VERIFY SYMBOLIC XXXX YYYY ZZ"
+        .DB      CR,LF,"ZAP XXXX YYY",'Y'+80H
 ;
 PSWMG:  .DB      "PS",'W'+80H
 ;
@@ -3378,10 +3392,10 @@ ADFLAG: .DS      1
 EXFLAG: .DS      1
 DBFLAG: .DS      1
 AUGFLAG: .DS     1
-MATCHFLAG: .DS   2
-TEMPWORD: .DS    3
-LASTOPC: .DS     3               ;LAST OP
-TRCONFLAG: .DS   2               ;TRACE CONTINUOUS FLAG
+MATCHFLAG:  .DS  2
+TEMPWORD:   .DS  3
+LASTOPC:    .DS  3               ;LAST OP
+TRCONFLAG:  .DS  2               ;TRACE CONTINUOUS FLAG
 LSTSUPFLAG: .DS  1               ;SUPPRESS LISTING FLAG
 ;
         .END
